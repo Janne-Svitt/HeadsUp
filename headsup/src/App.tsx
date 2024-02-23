@@ -1,7 +1,11 @@
 import "./App.css";
+import { HeadsUpApp } from "./components/HeadsUpApp";
+
 
 function App() {
-  return;
+  return <>
+  <HeadsUpApp />
+  </>
 }
 
 export default App;
