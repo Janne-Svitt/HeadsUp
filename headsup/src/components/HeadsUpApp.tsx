@@ -1,45 +1,45 @@
-import { useState } from "react";
 import "./CardContainer.css";
-
-const Dogs = ['tax', 'dalmatin', 'pudel', 'labrador', 'fransk bulldog', 'doberman', 'golden retriver', 'schäfer', 'corgi', 'st bernard'];
-
-const Shuffle = (dogs: string[]) => {
-    let m = dogs.length;
-    while (m) {
-        const i = Math.floor(Math.random() * m--);
-        [dogs[m], dogs[i]] = [dogs[i], dogs[m]];
-    }
-    return dogs;
-};
+import { GameContainer } from "./GameContainer";
+import bernardImg from "../img/bernard.jpg";
+import corgiImg from "../img/corgi.jpg";
+import dalmatinImg from "../img/dalmatin.jpg";
+import dobbermanImg from "../img/dobberman.jpg";
+import frallaImg from "../img/fralla.jpg";
+import goldenImg from "../img/golden.jpg";
+import labradorImg from "../img/labrador.jpg";
+import pudelImg from "../img/pudel.jpg";
+import schaferImg from "../img/schafer.jpg";
+import taxImg from "../img/tax.jpg";
 
 export const HeadsUpApp = () => {
-    const [score, setScore] = useState(0);
-    const [currentDog, setCurrentDog] = useState(0);
+  const dogs = [
+    { url: bernardImg, name: "st Bernard" },
+    { url: corgiImg, name: "Corgi" },
+    { url: dalmatinImg, name: "Dalmatin" },
+    { url: dobbermanImg, name: "Dobberman" },
+    { url: frallaImg, name: "French bulldog" },
+    { url: goldenImg, name: "Golden retriever" },
+    { url: labradorImg, name: "Labrador" },
+    { url: pudelImg, name: "Pudel" },
+    { url: schaferImg, name: "Schäfer" },
+    { url: taxImg, name: "Tax" },
+  ];
 
-    const handleRightButtonClick = () => {
-        setScore(score + 1);
-        const shuffledDogs = Shuffle([...Dogs]);
-        setCurrentDog(currentDog === shuffledDogs.length - 1 ? 0 : currentDog + 1);
-    };
+  const copyDogArray = [...dogs];
+  const newRandomDogArray: any = [];
 
-    const handleLeftButtonClick = () => {
-        const shuffledDogs = Shuffle([...Dogs]);
-        setCurrentDog(currentDog === shuffledDogs.length - 1 ? 0 : currentDog + 1);
-    };
+  while (copyDogArray.length > 0) {
+    const randomIndex = Math.floor(Math.random() * copyDogArray.length);
+    newRandomDogArray.push(copyDogArray[randomIndex]);
+    copyDogArray.splice(randomIndex, 1);
+  }
 
-    return (
-        <>
-            <h1>Heads Up Dogs!</h1>
-            <section className="grid grid-cols-6 h-[30vw] w-[50vw] border">
-                <button onClick={handleLeftButtonClick}>Wrong!</button>
-                <div className="size-full col-span-4">{Dogs[currentDog]}</div>
-                <button onClick={handleRightButtonClick}>Right!</button>
-            </section>
-            <section>
-                <p className=" text-9xl">Score: {score}</p>
-            </section>
-        </>
-    );
+  return (
+    <>
+      <h1 className="mb-6">Heads Up Dogs!</h1>
+      <GameContainer dogs={newRandomDogArray} />
+    </>
+  );
 };
 
 export default HeadsUpApp;
