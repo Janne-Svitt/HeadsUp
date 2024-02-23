@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./CardContainer.css";
 
 const Dogs = ['tax', 'dalmatin', 'pudel', 'labrador', 'fransk bulldog', 'doberman', 'golden retriver', 'schäfer', 'corgi', 'st bernard'];
 
@@ -29,12 +30,14 @@ export const HeadsUpApp = () => {
     return (
         <>
             <h1>Heads Up Dogs!</h1>
-            <div>
-                <p>Score: {score}</p>
-                <p>{Dogs[currentDog]}</p>
+            <section className="grid grid-cols-6 h-[30vw] w-[50vw] border">
                 <button onClick={handleLeftButtonClick}>Wrong!</button>
+                <div className="size-full col-span-4">{Dogs[currentDog]}</div>
                 <button onClick={handleRightButtonClick}>Right!</button>
-            </div>
+            </section>
+            <section>
+                <p className=" text-9xl">Score: {score}</p>
+            </section>
         </>
     );
 };
